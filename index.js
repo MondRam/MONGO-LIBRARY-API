@@ -2,7 +2,7 @@ import express from 'express';
 import { connect } from 'mongoose';
 import  connectDB  from './db.js';
 import { configDotenv } from 'dotenv';
-import  ArticleRouter  from './routes/ArticleRoute.js ';
+import  BookRouter  from './routes/BookRoute.js ';
 
 const app = express();
 
@@ -10,8 +10,8 @@ app.use(express.json());
 
 configDotenv();
 
-const PORT = process.env.PORT || 3000;
-app.use("/api", ArticleRouter)
+const PORT = process.env.PORT || 5000;
+app.use("/api", BookRouter)
 connectDB();
 
 app.get('/', (req, res) => {

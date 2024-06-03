@@ -1,15 +1,15 @@
 import express, { Router } from "express";
-import ArticleModel from "../models/article.js";
+import BookModel from "../models/book.js";
 
 const router = express.Router();
 
 
-const keysFilter = ["title", "description", "content"];
+const keysFilter = ["titulo", "autor", "genero"];
 keysFilter.sort();
 const defaultKeys = [
   "title",
-  "description",
-  "content"
+  "autor",
+  "genero"
 ];
 defaultKeys.sort();
 
@@ -24,27 +24,27 @@ const matchProperties = (keysReq) => {
 };
 
 
-router.post("/articles", async (req, res) => {
-  const article = new ArticleModel(req.body);
+router.post("/books", async (req, res) => {
+  const book = new BookModel(req.body);
   try {
-    await article.save();
-    res.send(article);
+    await book.save();
+    res.send(book);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.delete("/articles/delete/:_id", async (req, res) => {
+router.delete("/books/delete/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
 
     if (_id) {
       console.log(_id);
-      const deletedArticle = await ArticleModel.findByIdAndDelete({ _id });
+      const deletedBook = await BookModel.findByIdAndDelete({ _id });
       return res.status(200).json({
         code: 200,
-        msg: "The Article was deleted",
-        body: deletedArticle,
+        msg: "The Book was deleted",
+        body: deletedBook,
       });
     }
   } catch (error) {
@@ -52,10 +52,10 @@ router.delete("/articles/delete/:_id", async (req, res) => {
   }
 });
 
-router.get("/articles/view", async (req, res) => {
+router.get("/books/view", async (req, res) => {
   try {
-    const articles = await ArticleModel.find();
-    res.json(articles);
+    const books = await BookModel.find();
+    res.json(books);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

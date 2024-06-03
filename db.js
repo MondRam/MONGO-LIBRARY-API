@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
  
 export default function connectDB() {
-  const url = "mongodb://127.0.0.1/blog_db";
+  const url = "mongodb://127.0.0.1/library_db";
  
   try {
     mongoose.connect(url);

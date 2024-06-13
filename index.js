@@ -12,7 +12,7 @@ app.use(express.json());
 configDotenv();
 
 const PORT = process.env.PORT || 5000;
-app.use("/api", BookRouter, ComputerRouter)
+app.use("/api", BookRouter, ComputerRouter, CubicleRouter)
 connectDB();
 
 

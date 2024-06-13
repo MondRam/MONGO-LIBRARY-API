@@ -1,13 +1,14 @@
 import express, { Router } from "express";
-import ComputerModel from "../models/computer.js";
+import CubicleModel from "../models/cubicle.js";
 
 const router = express.Router();
 
-const keysFilter = ["ip", "numero"];
+const keysFilter = ["numero", "asignado", "usuario"];
 keysFilter.sort();
 const defaultKeys = [
-    "ip",
-    "numero"];
+    "numero", 
+    "asignado", 
+    "usuario"];
 defaultKeys.sort();
 
 const matchProperties = (keysReq) => {
@@ -20,27 +21,27 @@ const matchProperties = (keysReq) => {
   return true;
 };
 
-router.post("/computers", async (req, res) => {
-  const computer = new ComputerModel(req.body);
+router.post("/cubicles", async (req, res) => {
+  const cubicle = new CubicleModel(req.body);
   try {
-    await computer.save();
-    res.send(computer);
+    await cubicle.save();
+    res.send(cubicle);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.delete("/computers/delete/:_id", async (req, res) => {
+router.delete("/cubicles/delete/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
 
     if (_id) {
       console.log(_id);
-      const deletedComputer = await ComputerModel.findByIdAndDelete({ _id });
+      const deletedCubicle = await CubicleModel.findByIdAndDelete({ _id });
       return res.status(200).json({
         code: 200,
-        msg: "The Computer was deleted",
-        body: deletedComputer,
+        msg: "The Cubicle was deleted",
+        body: deletedCubicle,
       });
     }
   } catch (error) {
@@ -48,16 +49,16 @@ router.delete("/computers/delete/:_id", async (req, res) => {
   }
 });
 
-router.get("/computers/view", async (req, res) => {
+router.get("/cubicles/view", async (req, res) => {
   try {
-    const computers = await ComputerModel.find();
-    res.json(computers);
+    const cubicles = await CubicleModel.find();
+    res.json(cubicles);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.put("/computers/update/:_id", async (req, res) => {
+router.put("/cubicles/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     const keysReq = Object.keys(req.body);
@@ -71,11 +72,11 @@ router.put("/computers/update/:_id", async (req, res) => {
       });
     }
     if (_id) {
-      const newComputer = await ComputerModel.findByIdAndUpdate(_id, req.body);
+      const newCubicle = await CubicleModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Computer was updated",
-        body: newComputer,
+        msg: "The Cubicle was updated",
+        body: newCubicle,
       });
     }
   } catch (error) {
@@ -83,15 +84,15 @@ router.put("/computers/update/:_id", async (req, res) => {
   }
 });
 
-router.patch("/computers/partial/update/:_id", async (req, res) => {
+router.patch("/cubicles/partial/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     if (_id) {
-      const newComputer = await ComputerModel.findByIdAndUpdate(_id, req.body);
+      const newCubicle = await CubicleModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Computer was updated",
-        body: newComputer,
+        msg: "The Cubicle was updated",
+        body: newCubicle,
       });
     }
   } catch (error) {

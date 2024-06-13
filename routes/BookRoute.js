@@ -61,7 +61,7 @@ router.get("/books/view", async (req, res) => {
   }
 });
 
-router.put("/Books/update/:_id", async (req, res) => {
+router.put("/books/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     const keysReq = Object.keys(req.body);
@@ -87,7 +87,7 @@ router.put("/Books/update/:_id", async (req, res) => {
   }
 });
 
-router.patch("/Books/partial/update/:_id", async (req, res) => {
+router.patch("/books/partial/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     if (_id) {

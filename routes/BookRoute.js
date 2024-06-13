@@ -61,7 +61,7 @@ router.get("/books/view", async (req, res) => {
   }
 });
 
-router.put("/articles/update/:_id", async (req, res) => {
+router.put("/Books/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     const keysReq = Object.keys(req.body);
@@ -75,11 +75,11 @@ router.put("/articles/update/:_id", async (req, res) => {
       });
     }
     if (_id) {
-      const newArticle = await ArticleModel.findByIdAndUpdate(_id, req.body);
+      const newBook = await BookModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Article was updated",
-        body: newArticle,
+        msg: "The Book was updated",
+        body: newBook,
       });
     }
   } catch (error) {
@@ -87,15 +87,15 @@ router.put("/articles/update/:_id", async (req, res) => {
   }
 });
 
-router.patch("/articles/partial/update/:_id", async (req, res) => {
+router.patch("/Books/partial/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     if (_id) {
-      const newArticle = await ArticleModel.findByIdAndUpdate(_id, req.body);
+      const newBook = await BookModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Article was updated",
-        body: newArticle,
+        msg: "The Book was updated",
+        body: newBook,
       });
     }
   } catch (error) {

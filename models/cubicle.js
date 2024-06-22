@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const CubicleSchema = new mongoose.Schema({
     numero: {type: Number, required: true,},
-    asigando: {type: Boolean, required: true},
+    asignado: {type: Boolean, required: true},
     usuario: {type: String,},
 
 }, {timestamps: true});

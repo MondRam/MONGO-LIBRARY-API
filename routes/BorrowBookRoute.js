@@ -1,14 +1,21 @@
 import express, { Router } from "express";
-import CubicleModel from "../models/cubicle.js";
+import BorrowBookModel from "../models/borrowBook.js";
 
 const router = express.Router();
 
-const keysFilter = ["numero", "asignado"];
+
+const keysFilter = ["matricula", "nombre", "carrera", "isbn", "fecha_entrega", "estado_entrega", "fecha_devolucion", "entregado",];
+
 keysFilter.sort();
 const defaultKeys = [
-    "numero", 
-    "asignado", 
-    ];
+  "matricula", 
+  "nombre", 
+  "carrera", 
+  "isbn", 
+  "fecha_entrega", 
+  "estado_entrega", 
+  "fecha_devolucion", 
+  "entregado",];
 defaultKeys.sort();
 
 const matchProperties = (keysReq) => {
@@ -21,27 +28,28 @@ const matchProperties = (keysReq) => {
   return true;
 };
 
-router.post("/cubicles", async (req, res) => {
-  const cubicle = new CubicleModel(req.body);
+
+router.post("/books-borrow", async (req, res) => {
+  const book = new BorrowBookModel(req.body);
   try {
-    await cubicle.save();
-    res.send(cubicle);
+    await book.save();
+    res.send(book);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.delete("/cubicles/delete/:_id", async (req, res) => {
+router.delete("/books-borrow/delete/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
 
     if (_id) {
       console.log(_id);
-      const deletedCubicle = await CubicleModel.findByIdAndDelete({ _id });
+      const deletedBook = await BorrowBookModel.findByIdAndDelete({ _id });
       return res.status(200).json({
         code: 200,
-        msg: "The Cubicle was deleted",
-        body: deletedCubicle,
+        msg: "The Book was deleted",
+        body: deletedBook,
       });
     }
   } catch (error) {
@@ -49,16 +57,16 @@ router.delete("/cubicles/delete/:_id", async (req, res) => {
   }
 });
 
-router.get("/cubicles/view", async (req, res) => {
+router.get("/books-borrow/view", async (req, res) => {
   try {
-    const cubicles = await CubicleModel.find();
-    res.json(cubicles);
+    const books = await BorrowBookModel.find();
+    res.json(books);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-router.put("/cubicles/update/:_id", async (req, res) => {
+router.put("/books-borrow/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     const keysReq = Object.keys(req.body);
@@ -72,11 +80,11 @@ router.put("/cubicles/update/:_id", async (req, res) => {
       });
     }
     if (_id) {
-      const newCubicle = await CubicleModel.findByIdAndUpdate(_id, req.body);
+      const newBook = await BorrowBookModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Cubicle was updated",
-        body: newCubicle,
+        msg: "The Book was updated",
+        body: newBook,
       });
     }
   } catch (error) {
@@ -84,15 +92,15 @@ router.put("/cubicles/update/:_id", async (req, res) => {
   }
 });
 
-router.patch("/cubicles/partial/update/:_id", async (req, res) => {
+router.patch("/books-borrow/partial/update/:_id", async (req, res) => {
   try {
     const { _id } = req.params;
     if (_id) {
-      const newCubicle = await CubicleModel.findByIdAndUpdate(_id, req.body);
+      const newBook = await BorrowBookModel.findByIdAndUpdate(_id, req.body);
       return res.status(200).json({
         code: 200,
-        msg: "The Cubicle was updated",
-        body: newCubicle,
+        msg: "The Book was updated",
+        body: newBook,
       });
     }
   } catch (error) {

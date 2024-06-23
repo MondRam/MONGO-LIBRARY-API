@@ -6,6 +6,7 @@ import  BookRouter  from './routes/BookRoute.js ';
 import  ComputerRouter  from './routes/ComputerRoute.js ';
 import  CubicleRouter  from './routes/CubicleRoute.js ';
 import BorrowBookRouter  from './routes/BorrowBookRoute.js';
+import BorrowComputerRouter  from './routes/BorrowComputerRoute.js';
 
 const app = express();
 
@@ -14,7 +15,7 @@ app.use(express.json());
 configDotenv();
 
 const PORT = process.env.PORT || 5000;
-app.use("/api", BookRouter, ComputerRouter, CubicleRouter, BorrowBookRouter)
+app.use("/api", BookRouter, ComputerRouter, CubicleRouter, BorrowBookRouter, BorrowComputerRouter);
 connectDB();
 
 
